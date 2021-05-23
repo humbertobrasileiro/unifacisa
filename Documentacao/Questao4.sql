@@ -1,0 +1,1 @@
+SELECT CODIGO, NOME FROM ppessoa
