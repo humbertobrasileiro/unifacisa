@@ -1,4 +1,3 @@
-
 @extends('pessoas.layout')
 
 @section('title',__('Pessoas (UniFacisa - Desenvolvido com Laravel)'))
@@ -46,11 +45,6 @@
                                 <td>{{ $case->Nome }}</td>
                                 <td>{{ $case->cpf }}</td>
                                 <td>{{ $case->dataNascimento }}</td>
-                                <td class="text-center p-0 align-middle" width="70">
-                                    <a href="{{ route('pessoas.extrato', $case->idPessoa)}}"
-                                        class="btn btn-info btn-sm">@lang('Extrato')
-                                    </a>
-                                </td>
                                 <td class="text-center p-0 align-middle" width="70">
                                     <a href="{{ route('pessoas.show', $case->idPessoa)}}"
                                         class="btn btn-info btn-sm">@lang('Abrir')
