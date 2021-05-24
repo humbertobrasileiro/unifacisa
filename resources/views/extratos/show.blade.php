@@ -32,11 +32,21 @@ table th{
                     </div>
                 </div>
                 <div class="card-body">
+
                     @if (session('success'))
                         <div class="alert alert-success" role="alert">
                             {{ session('success') }}
                         </div>
                     @endif
+
+                    <table class="w3-table-all notranslate" width="100%" border="1">
+                        <tbody>
+                            <tr>
+                            <th align="left"><strong>ID-Conta: {{ $conta[0]['idConta'] }}</strong></th>
+                            <th align="left">Nome: {{ $conta[0]['Nome'] }}</th>
+                            </tr>
+                        </tbody>
+                    </table>
 
                     <div id="accordion">
                         <div class="card">

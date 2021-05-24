@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Conta;
+use App\Transa;
 
 class ExtratoController extends Controller
 {
@@ -41,6 +42,7 @@ class ExtratoController extends Controller
      */
     public function store(Request $request)
     {
+
         return redirect('/extratos')->with('success', 'Extrato gerado com sucesso!');
     }
 
@@ -50,9 +52,16 @@ class ExtratoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idConta)
     {
-        return view('extratos.show');
+        $conta = Conta::select(Conta::raw('c.idConta, c.idPessoa, p.Nome, c.saldo, c.limiteSaqueDiario,c.flagAtivo, c.tipoConta, c.dataCriacao, c.created_at, c.updated_at'))
+            ->from(Conta::raw('contas c'))
+            ->join(Conta::raw('pessoas p'), 'p.idPessoa', '=', 'c.idPessoa')
+            ->where('c.idConta', '=', $idConta)
+            ->limit(1)
+            ->get();
+
+        return view('extratos.show', compact('conta'));
     }
 
     /**
