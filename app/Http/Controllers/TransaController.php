@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Transa;
+use App\Conta;
 
 class TransaController extends Controller
 {
@@ -25,7 +26,15 @@ class TransaController extends Controller
      */
     public function create()
     {
-        return view('transas.create');
+        $tipotransa = 'D';
+
+        $contas = Conta::select(Conta::raw('c.idConta, p.Nome'))
+            ->from(Conta::raw('contas c'))
+            ->join(Conta::raw('pessoas p'), 'p.idPessoa', '=', 'c.idPessoa')
+            ->orderBy('Nome', 'DESC')
+            ->get();
+
+        return view('transas.create', compact('tipotransa, contas'));
     }
 
     /**
@@ -47,7 +56,7 @@ class TransaController extends Controller
 
             $request->merge(['valor' => (string) $valor]);
 
-        } 
+        }
 
     //    $valor = (float) $request->input('valor');
 
@@ -73,7 +82,26 @@ class TransaController extends Controller
     public function show($id)
     {
         $transadatatransacao = Transa::findOrFail($id);
-        return view('transas.show',compact('transadatatransacao'));
+
+        $idConta = $transadatatransacao->idConta;
+
+        if ($transadatatransacao->valor > 0) {
+
+            $tipotransa = 'Depósito';
+
+        } else {
+
+            $tipotransa = 'Saque';
+
+        }
+
+        $pessoa = Conta::select(Conta::raw('c.idConta, p.idPessoa, p.Nome'))
+            ->from(Conta::raw('contas c'))
+            ->join(Conta::raw('pessoas p'), 'p.idPessoa', '=', 'c.idPessoa')
+            ->where('c.idConta', '=', $idConta)
+            ->get();
+
+        return view('transas.show', compact('transadatatransacao', 'tipotransa', 'pessoa'));
     }
 
     /**
@@ -85,7 +113,24 @@ class TransaController extends Controller
     public function edit($id)
     {
         $transadatatransacao = Transa::findOrFail($id);
-        return view('transas.edit', compact('transadatatransacao'));
+
+        if ($transadatatransacao->valor > 0) {
+
+            $tipotransa = 'Depósito';
+
+        } else {
+
+            $tipotransa = 'Saque';
+
+        }
+
+        $contas = Conta::select(Conta::raw('c.idConta, p.Nome'))
+            ->from(Conta::raw('contas c'))
+            ->join(Conta::raw('pessoas p'), 'p.idPessoa', '=', 'c.idPessoa')
+            ->orderBy('Nome', 'DESC')
+            ->get();
+
+        return view('transas.edit', compact('transadatatransacao', 'tipotransa', 'contas'));
     }
 
     /**

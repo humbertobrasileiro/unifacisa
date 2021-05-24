@@ -33,7 +33,14 @@
 
                     <div class="form-group">
                         {!! Form::label(__('ID da Conta:')) !!}
-                        {!! Form::number("idConta", null , ["class"=>"form-control","required"=>"required"]) !!}
+                        <select id="idConta" name="idConta" class="form-control">
+                            <option id="idConta" selected="selected" value=""></option>
+                            @foreach($contas as $conta)
+
+                                <option id="idConta" value="{{ $conta['idConta'] }}">{{ $conta['idConta'] . ' - ' . $conta['Nome'] }}</option>
+
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="form-group">

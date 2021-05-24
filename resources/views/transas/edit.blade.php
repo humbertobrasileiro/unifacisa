@@ -16,7 +16,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between w-100">
-                        <span>@lang('Editar (Transações de Conta - UniFacisa)')</span>
+                        <span>@lang('Editar ' . $tipotransa . ' (Transações de Conta - UniFacisa)')</span>
                         <a href="{{ url('/transas') }}" class="btn-info btn-sm">
                             <i class="fa fa-arrow-left"></i> @lang('Voltar')
                         </a>
@@ -33,7 +33,22 @@
 
                     <div class="form-group">
                         {!! Form::label(__('ID da Conta:')) !!}
-                        {!! Form::text("idConta", $transadatatransacao->idConta ,["class"=>"form-control","required"=>"required"]) !!}
+                        <select id="idConta" name="idConta" class="form-control">
+                            <option id="idConta" selected="selected" value=""></option>
+                            @foreach($contas as $conta)
+
+                                @if($conta['idConta'] == $transadatatransacao->idConta)
+
+                                    <option id="idConta" selected="selected" value="{{ $conta['idConta'] }}">{{ $conta['idConta'] . ' - ' . $conta['Nome'] }}</option>
+
+                                @else
+
+                                    <option id="idConta" value="{{ $conta['idConta'] }}">{{ $conta['idConta'] . ' - ' . $conta['Nome'] }}</option>
+
+                                @endif
+
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="form-group">

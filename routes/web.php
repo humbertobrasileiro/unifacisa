@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Conta;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,14 +22,26 @@ Route::get('/deposito', function () {
 
     $tipotransa = 'D';
 
-    return view('transas/create', compact('tipotransa'));
+    $contas = Conta::select(Conta::raw('c.idConta, p.Nome'))
+        ->from(Conta::raw('contas c'))
+        ->join(Conta::raw('pessoas p'), 'p.idPessoa', '=', 'c.idPessoa')
+        ->orderBy('Nome', 'DESC')
+        ->get();
+
+    return view('transas/create', compact('tipotransa', 'contas'));
 });
 
 Route::get('/saque', function () {
 
     $tipotransa = 'S';
 
-    return view('transas/create', compact('tipotransa'));
+    $contas = Conta::select(Conta::raw('c.idConta, p.Nome'))
+        ->from(Conta::raw('contas c'))
+        ->join(Conta::raw('pessoas p'), 'p.idPessoa', '=', 'c.idPessoa')
+        ->orderBy('Nome', 'DESC')
+        ->get();
+
+    return view('transas/create', compact('tipotransa', 'contas'));
 });
 
 Route::resource('contas', 'ContaController');

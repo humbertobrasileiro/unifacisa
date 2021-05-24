@@ -46,8 +46,16 @@ table th{
                           <th align="left">{{$transadatatransacao->idTransacao}}</th>
                         </tr>
                         <tr>
+                            <th align="left"><strong>@lang('Tipo Transação:')</strong>:</th>
+                            <th align="left">{{ $tipotransa }}</th>
+                        </tr>
+                        <tr>
                             <th align="left"><strong>@lang('ID da Conta')</strong>:</th>
                             <th align="left">{{$transadatatransacao->idConta}}</th>
+                        </tr>
+                        <tr>
+                            <th align="left"><strong>@lang('Responsável pela Conta')</strong>:</th>
+                            <th align="left">{{ $pessoa[0]['idConta'] . ' - ' . $pessoa[0]['Nome'] }}</th>
                         </tr>
                         <tr>
                             <th align="left"><strong>@lang('Valor (R$)')</strong>:</th>
