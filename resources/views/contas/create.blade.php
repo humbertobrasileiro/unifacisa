@@ -29,7 +29,7 @@
                     </div>
                     @endif
 
-                    {!! Form::open(['action' =>'ContaController@store', 'method' => 'POST'])!!}
+                    {!! Form::open(['action' => 'ContaController@store', 'method' => 'POST'])!!}
 
                     <div class="form-group">
                         {!! Form::label(__('Selecione responsável pela conta:')) !!}
@@ -58,7 +58,7 @@
                         <select id="flagAtivo" name="flagAtivo" class="form-control">
                             <option id="flagAtivo" value=""></option>
                             <option id="flagAtivo" value="0">Aberta</option>
-                            <option id="flagAtivo" value="1">Bloqueada</option>                            
+                            <option id="flagAtivo" value="1">Bloqueada</option>
                         </select>
                     </div>
 
@@ -68,7 +68,7 @@
                             <option id="tipoConta" value=""></option>
                             <option id="tipoConta" value="1">Conta corrente</option>
                             <option id="tipoConta" value="2">Poupança</option>
-                            <option id="tipoConta" value="3">Conta salário</option>                            
+                            <option id="tipoConta" value="3">Conta salário</option>
                         </select>
                     </div>
 

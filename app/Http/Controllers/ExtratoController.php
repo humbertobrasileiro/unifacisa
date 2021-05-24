@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Conta;
 use App\Transa;
+use DateTime;
 
 class ExtratoController extends Controller
 {
@@ -42,6 +43,60 @@ class ExtratoController extends Controller
      */
     public function store(Request $request)
     {
+
+        $tipo = $request->input('tipo');
+
+        $idConta = $request->input('idConta');
+
+        $idPessoa = $request->input('idPessoa');
+
+        if ($tipo == "P") {
+
+            // Por período
+
+            $de = (string) $request->input('de');
+
+            $ate = (string) $request->input('ate');
+
+            $lista = Transa::select(Transa::raw('idConta, valor, dataTransacao'))
+                ->from('transas')
+                ->whereBetween('dataTransacao', [$de, $ate])
+                ->where('idConta', '=', $idConta)
+                ->get();
+
+            var_dump($lista); die;
+
+
+        } else {
+
+            // Mensal
+
+            $mes = (int) $request->input('mes');
+
+            $ano = (int) $request->input('ano');
+
+            $de = new DateTime();
+
+            $de->setDate($ano, $mes, 1);
+
+            $ult = date("t", mktime(0, 0, 0, $mes, '01', $ano));
+
+            $ate = new DateTime();
+
+            $ate->setDate($ano, $mes, $ult);
+
+            echo $de->format('Y-m-d');
+            echo $ate->format('Y-m-d');
+
+            $lista = Transa::select(Transa::raw('idConta, valor, dataTransacao'))
+                ->from('transas')
+                ->whereBetween('dataTransacao', [$de, $ate])
+                ->where('idConta', '=', $idConta)
+                ->get();
+
+            var_dump($lista); die;
+
+        }
 
         return redirect('/extratos')->with('success', 'Extrato gerado com sucesso!');
     }

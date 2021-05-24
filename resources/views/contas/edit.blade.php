@@ -29,7 +29,7 @@
                     </div>
                     @endif
 
-                    {!! Form::open(['action' => ['ContaController@update',$contadatacriacao->idConta], 'method' => 'PUT'])!!}
+                    {!! Form::open(['action' => ['ContaController@update', $contadatacriacao->idConta], 'method' => 'PUT'])!!}
 
                     <div class="form-group">
                         {!! Form::label(__('Selecione responsável pela conta:')) !!}
@@ -60,7 +60,7 @@
                         {!! Form::label(__('Status da conta:')) !!}
                         <select id="flagAtivo" name="flagAtivo" class="form-control">
                             <option @if($contadatacriacao->flagAtivo == 0) selected="selected" @endif id="flagAtivo" value="0">Aberta</option>
-                            <option @if($contadatacriacao->flagAtivo == 1) selected="selected" @endif id="flagAtivo" value="1">Bloqueada</option>                            
+                            <option @if($contadatacriacao->flagAtivo == 1) selected="selected" @endif id="flagAtivo" value="1">Bloqueada</option>
                         </select>
                     </div>
 
@@ -69,7 +69,7 @@
                         <select id="tipoConta" name="tipoConta" class="form-control">
                             <option @if($contadatacriacao->tipoConta == 1) selected="selected" @endif id="tipoConta" value="1">Conta corrente</option>
                             <option @if($contadatacriacao->tipoConta == 2) selected="selected" @endif id="tipoConta" value="2">Poupança</option>
-                            <option @if($contadatacriacao->tipoConta == 3) selected="selected" @endif id="tipoConta" value="3">Conta salário</option>                            
+                            <option @if($contadatacriacao->tipoConta == 3) selected="selected" @endif id="tipoConta" value="3">Conta salário</option>
                         </select>
                     </div>
 

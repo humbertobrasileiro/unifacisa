@@ -48,17 +48,18 @@ table th{
                         </tbody>
                     </table>
 
+                    {!! Form::open(['action' => ['ExtratoController@store', 'idConta' => $conta[0]['idConta'], 'idPessoa' => $conta[0]['idPessoa']], 'method' => 'POST']) !!}
+
                     <div id="accordion">
                         <div class="card">
                             <div class="card-header" id="headingOne">
                                 <h5 class="mb-0">
-                                    <input type="radio" checked="true" data-toggle="collapse" data-target="#collapse_periodo" name="tipo" id="periodo" aria-expanded="true" aria-controls="collapse_periodo">
+                                    <input type="radio" checked="true" data-toggle="collapse" data-target="#collapse_periodo" name="tipo" value="P" id="periodo" aria-expanded="true" aria-controls="collapse_periodo">
                                     <label for="periodo">Extrato por período</label>
                                 </h5>
                             </div>
                             <div id="collapse_periodo" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                                 <div class="card-body">
-                                    {!! Form::open(['action' => ['ExtratoController@store', 'tipo' => 'P'], 'method' => 'POST']) !!}
                                         <div class="form-row">
                                             <div class="col-7">
                                                 {!! Form::date("de", date('Y-m-d', strtotime('-30 days')),["class"=>"form-control mmss","required"=>"required"]) !!}
@@ -67,38 +68,38 @@ table th{
                                                 {!! Form::date("ate", date('Y-m-d', strtotime(now())) ,["class"=>"form-control mmss","required"=>"required"]) !!}
                                             </div>
                                         </div>
-                                    {!! Form::close() !!}
                                 </div>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-header" id="headingTwo">
                                 <h5 class="mb-0">
-                                    <input type="radio" data-toggle="collapse" data-target="#collapse_mensal" name="tipo" id="mensal" aria-expanded="false" aria-controls="collapse_mensal">
+                                    <input type="radio" data-toggle="collapse" data-target="#collapse_mensal" name="tipo" value="M" id="mensal" aria-expanded="false" aria-controls="collapse_mensal">
                                     <label for="mensal">Extrato mensal</label>
                                 </h5>
                                 <div id="collapse_mensal" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                                     <div class="card-body">
-                                        {!! Form::open(['action' => ['ExtratoController@store', 'tipo' => 'M'], 'method' => 'POST']) !!}
                                             <div class="form-row">
                                                 <div class="col-7">
                                                     Mês: {!! Form::selectMonth('mes', date('n'), ['class' => 'form-control month']) !!}
                                                 </div>
                                                 <div class="col-5">
                                                     Ano: <br>
-                                                    {!! Form::selectYear('year', date('Y'), date('Y')-100, null, ['class'=>'year']) !!}
+                                                    {!! Form::selectYear('ano', date('Y'), date('Y')-100, null, ['class' => 'form-control year']) !!}
                                                 </div>
                                             </div>
-                                        {!! Form::close() !!}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="well well-sm clearfix">
-                    <button class="btn btn-success pull-right" title="@lang('Salvar')"
-                        type="submit">@lang('Gerar o extrato')</button>
+                    <div class="well well-sm clearfix">
+                        <button class="btn btn-success pull-right" title="@lang('Salvar')"
+                            type="submit">@lang('Gerar o extrato')</button>
+                    </div>
+
+                    {!! Form::close() !!}
+
                 </div>
             </div>
         </div>
