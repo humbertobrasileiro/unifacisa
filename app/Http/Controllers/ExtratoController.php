@@ -64,9 +64,6 @@ class ExtratoController extends Controller
                 ->where('idConta', '=', $idConta)
                 ->get();
 
-            var_dump($lista); die;
-
-
         } else {
 
             // Mensal
@@ -85,16 +82,11 @@ class ExtratoController extends Controller
 
             $ate->setDate($ano, $mes, $ult);
 
-            echo $de->format('Y-m-d');
-            echo $ate->format('Y-m-d');
-
             $lista = Transa::select(Transa::raw('idConta, valor, dataTransacao'))
                 ->from('transas')
                 ->whereBetween('dataTransacao', [$de, $ate])
                 ->where('idConta', '=', $idConta)
                 ->get();
-
-            var_dump($lista); die;
 
         }
 
